@@ -23,12 +23,12 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById("root")!).render(
   // Material UIのテーマを適用
   <ThemeProvider theme={theme}>
-    {/* React Queryの設定をラップ */}
-    <QueryClientProvider client={queryClient}>
-      {/* ルーティングの設定 */}
-      <BrowserRouter>
+    {/* ルーティングの設定 */}
+    <BrowserRouter>
+      {/* React Queryの設定をラップ */}
+      <QueryClientProvider client={queryClient}>
         <App />
-      </BrowserRouter>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </BrowserRouter>
   </ThemeProvider>
 );
