@@ -1,6 +1,14 @@
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { getProductDetail } from "../ApiAdapter/GetProductDetail";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  Skeleton,
+  Typography,
+} from "@mui/material";
 
 /**
  * 商品詳細ページコンポーネント
@@ -33,15 +41,28 @@ function ProductDetailPage() {
 
       {isLoading ? (
         // ローディング中表示
-        <p>読み込み中...</p>
+        <Skeleton variant="rectangular" width="100%" height={300} />
       ) : (
-        <div>
-          <h2>{product?.title}</h2>
-          <img src={product?.image} alt={product?.title} width={200} />
-          <p>価格：{product?.price}</p>
-          <p>{product?.description}</p>
-          <p>カテゴリ：{product?.category}</p>
-        </div>
+        <Grid container spacing={2}>
+          <Grid component="div" width={"100%"} height={"80%"}>
+            <Card>
+              <CardMedia
+                component="img"
+                alt={product?.title}
+                // height="50%"
+                image={product?.image}
+              />
+              <CardContent>
+                <Typography variant="h5">{product?.title}</Typography>
+                <Typography variant="body2">{product?.description}</Typography>
+                <Typography variant="h6">価格: ¥{product?.price}</Typography>
+                <Typography variant="body2">
+                  カテゴリ: {product?.category}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
       )}
     </>
   );
