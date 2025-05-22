@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import App from "./App";
 import "./index.css";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { CartProvider } from "./contexts/CartContext";
 
 /**
  * Material-UIのテーマ設定
@@ -27,7 +28,10 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       {/* React Queryの設定をラップ */}
       <QueryClientProvider client={queryClient}>
-        <App />
+        {/* カートの状態を管理するプロバイダー */}
+        <CartProvider>
+          <App />
+        </CartProvider>
       </QueryClientProvider>
     </BrowserRouter>
   </ThemeProvider>

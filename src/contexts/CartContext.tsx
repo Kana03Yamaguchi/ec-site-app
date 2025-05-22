@@ -2,14 +2,14 @@ import { createContext, useContext, useReducer, type ReactNode } from "react";
 import { initialCartDataType, type CartDataType } from "../types/CartType";
 import { cartReducer, type CartAction } from "../reducer/CartReducer";
 
-// 型定義：Context（todos状態とdispatch関数）
+// 型定義：Context
 export type CartContextType = {
-  todos: CartContextType;
-  dispatch: React.Dispatch<CartAction>;
+  state: CartDataType; // カートの状態
+  dispatch: React.Dispatch<CartAction>; // カートの状態を変更する関数
 };
 
 // Context：カートの状態を管理する
-const CartContext = createContext<CartDataType | undefined>(undefined);
+const CartContext = createContext<CartContextType | undefined>(undefined);
 
 /**
  * カートの状態を返すコンテキストプロバイダー

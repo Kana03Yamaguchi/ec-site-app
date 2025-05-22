@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { getProductDetail } from "../ApiAdapter/GetProductDetail";
 import {
+  Button,
   Card,
   CardContent,
   CardMedia,
@@ -9,6 +10,7 @@ import {
   Skeleton,
   Typography,
 } from "@mui/material";
+import { useCart } from "../contexts/CartContext";
 
 /**
  * 商品詳細ページコンポーネント
@@ -19,6 +21,8 @@ function ProductDetailPage() {
   const urlParams = useParams<{ id: string }>();
   // URLパラメータID
   const productId = Number(urlParams.id);
+  // カートコンテキストを取得
+  const { dispatch } = useCart();
 
   /**
    * 初期表示処理
@@ -33,6 +37,24 @@ function ProductDetailPage() {
     queryFn: () => getProductDetail(productId),
     enabled: !!productId, // idが存在する場合のみAPIを実行する
   });
+
+  /**
+   * メモ化
+   */
+  // 商品をカートに追加する関数
+  const handleAddToCart = () => {
+    // 商品が存在しない場合は何もしない
+    if (!product) return;
+    // 商品が存在する場合はカートに追加
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: {
+        id: product.id,
+        price: product.price,
+        quantity: 1,
+      },
+    });
+  };
 
   return (
     <>
@@ -59,6 +81,7 @@ function ProductDetailPage() {
                 <Typography variant="body2">
                   カテゴリ: {product?.category}
                 </Typography>
+                <Button onClick={handleAddToCart}>カートに追加</Button>
               </CardContent>
             </Card>
           </Grid>
