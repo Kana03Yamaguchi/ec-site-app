@@ -1,5 +1,5 @@
 /**
- * 型定義：PostType
+ * 型定義：ProductType
  * - APIから取得する商品情報の型定義
  */
 export interface ProductType {

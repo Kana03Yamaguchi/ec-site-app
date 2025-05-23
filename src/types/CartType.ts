@@ -18,10 +18,10 @@ export interface CartDataType {
 }
 
 /**
- * 型定義：initialCartDataType
- * - カート全体（初期状態）の型定義
+ * 型定義：initCartData
+ * - カート全体の初期値
  */
-export const initialCartDataType: CartDataType = {
+export const initCartData: CartDataType = {
   cartItems: [], // 商品リスト
   totalAmount: 0, // 合計金額
 };
