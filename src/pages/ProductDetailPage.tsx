@@ -1,23 +1,8 @@
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { getProductDetail } from "../ApiAdapter/GetProductDetail";
-import {
-  Button,
-  Grid,
-  Paper,
-  Skeleton,
-  styled,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Paper, Skeleton, Typography } from "@mui/material";
 import { useCart } from "../contexts/CartContext";
-
-// Grid内で使う <Item> コンポーネント
-const Item = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(2),
-  backgroundColor: "#f5f5f5",
-  textAlign: "left",
-  boxShadow: "none",
-}));
 
 /**
  * 商品詳細ページコンポーネント
@@ -71,44 +56,62 @@ function ProductDetailPage() {
       {isLoading ? (
         <Skeleton variant="rectangular" width="100%" height={300} />
       ) : (
-        <Grid container spacing={2} sx={{ mt: 2 }}>
-          {/* 商品画像（左） */}
-          <Grid size={5}>
-            <Item>
+        <Box sx={{ flex: 1, height: "100vh" }}>
+          <Paper elevation={3} sx={{ width: "100%", height: "100%" }}>
+            {/* 商品画像セクション */}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                bgcolor: "white",
+                p: 3,
+                minHeight: "300px",
+              }}
+            >
               <img
                 src={product?.image}
                 alt={product?.title}
-                style={{ width: "100%", objectFit: "contain", maxHeight: 300 }}
+                style={{ maxWidth: "600px", width: "100%" }}
               />
-            </Item>
-          </Grid>
+            </Box>
 
-          {/* 商品情報（右） */}
-          <Grid size={7}>
-            <Item>
+            {/* 商品情報セクション */}
+            <Box sx={{ bgcolor: "#F2EBE0", p: 3 }}>
               <Typography variant="h5" gutterBottom>
+                {/* 商品名 */}
                 {product?.title}
               </Typography>
               <Typography variant="body2" color="text.secondary" gutterBottom>
+                {/* 商品カテゴリ */}
                 カテゴリ: {product?.category}
               </Typography>
-              <Typography variant="body1" sx={{ mt: 1 }}>
+              <Typography variant="body1" gutterBottom>
+                {/* 商品説明 */}
                 {product?.description}
               </Typography>
               <Typography variant="h6" sx={{ mt: 2 }}>
+                {/* 商品価格 */}
                 価格: ${product?.price}
               </Typography>
+
+              {/* カートに追加ボタン */}
               <Button
                 variant="contained"
-                color="primary"
-                sx={{ mt: 2 }}
+                sx={{
+                  mt: 2,
+                  backgroundColor: "#433E49",
+                  "&:hover": {
+                    backgroundColor: "#2E2A34",
+                  },
+                }}
                 onClick={handleAddToCart}
               >
-                カートに追加
+                Add to Cart
               </Button>
-            </Item>
-          </Grid>
-        </Grid>
+            </Box>
+          </Paper>
+        </Box>
       )}
     </>
   );

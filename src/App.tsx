@@ -13,6 +13,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import { useCart } from "./contexts/CartContext";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useMemo } from "react";
+import siteLogo from "./assets/site_name.png";
 
 /**
  * Appコンポーネント
@@ -33,24 +34,47 @@ function App() {
   }, [state.cartItems]);
 
   return (
-    <Box>
+    <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       {/* ヘッダー */}
-      <AppBar position="sticky">
-        <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            ECサイト
-          </Typography>
+      <AppBar position="sticky" sx={{ bgcolor: "#DDC9BC", color: "black" }}>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+          {/* 左：空のBoxでバランス調整 */}
+          <Box sx={{ flex: 1 }} />
 
-          <Link to="/cart">
-            <Badge badgeContent={totalCartItems} color="secondary" showZero>
-              <ShoppingCartIcon />
-            </Badge>
-          </Link>
+          {/* 中央：ロゴ */}
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <img
+              src={siteLogo}
+              alt="サイトロゴ"
+              style={{ height: 40, marginRight: 8 }}
+            />
+          </Box>
+
+          {/* 右：ナビゲーション（TOP・カート） */}
+          <Box
+            sx={{
+              flex: 1,
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              gap: 2,
+            }}
+          >
+            <Link to="/" style={{ color: "black", textDecoration: "none" }}>
+              TOP
+            </Link>
+
+            <Link to="/cart" style={{ color: "black" }}>
+              <Badge badgeContent={totalCartItems} color="secondary" showZero>
+                <ShoppingCartIcon />
+              </Badge>
+            </Link>
+          </Box>
         </Toolbar>
       </AppBar>
 
       {/* メインコンテンツ */}
-      <Container>
+      <Box sx={{ flexGrow: 1 }}>
         <Routes>
           {/* 商品一覧ページ */}
           <Route path="/" element={<ProductListPage />} />
@@ -59,13 +83,13 @@ function App() {
           {/* カートページ */}
           <Route path="/cart" element={<CartPage />} />
         </Routes>
-      </Container>
+      </Box>
 
       {/* フッター */}
-      <Box sx={{ bgcolor: "primary.main", color: "white", py: 2 }}>
+      <Box sx={{ bgcolor: "#DDC9BC", color: "black", py: 2 }}>
         <Container>
           <Typography variant="body2" align="center">
-            © 2025 ECサイト
+            © 2025 Online Shop
           </Typography>
         </Container>
       </Box>

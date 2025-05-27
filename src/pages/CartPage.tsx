@@ -129,7 +129,7 @@ function CartPage() {
                 </Typography>
 
                 {/* 商品価格 */}
-                <Typography variant="body1" sx={{ mt: 1 }}>
+                <Typography variant="body2" sx={{ mt: 1 }}>
                   単価: ${item.price}
                 </Typography>
 
