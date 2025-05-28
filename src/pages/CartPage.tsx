@@ -71,6 +71,8 @@ function CartPage() {
     );
   }, [state.cartItems]);
 
+  console.log(state.cartItems); // ←まずここで中身確認！
+
   // カート内の商品を表示
   const cartItemElements = state.cartItems
     .map((item) => {
